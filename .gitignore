@@ -6,3 +6,5 @@ asset_library.csv
 json_test.py
 .streamlit/
 api_test.py
+*.db
+.env
