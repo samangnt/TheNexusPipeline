@@ -1,6 +1,6 @@
 import requests
 
-WEBHOOK_URL = ""
+WEBHOOK_URL = "https://webhook.site/2df5cf4b-d1d6-4f3f-bedd-0cc2325266d9"
 
 def send_notification(message: str, *args, **kwargs) -> None:
     
