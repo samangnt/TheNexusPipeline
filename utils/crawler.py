@@ -1,20 +1,21 @@
-import os
+from pathlib import Path
 from models.studio_asset import StudioAsset
 
 def crawl_directory(path: str) -> list:
     assets = []
     
-    # Loop through everything in the folder
-    for item in os.listdir(path):
-        full_path = os.path.join(path, item)
+    # Convert string path to Path object — handles Windows/Mac automatically
+    folder = Path(path)
+    
+    for item in folder.iterdir():
         
         # If it's a folder — go INSIDE it (recursion!)
-        if os.path.isdir(full_path):
-            assets.extend(crawl_directory(full_path))
+        if item.is_dir():
+            assets.extend(crawl_directory(str(item)))
         
         # If it's a .fbx or .blend file — create an asset
-        elif item.endswith(('.fbx', '.blend')):
-            asset = StudioAsset(name=item, path=full_path)
+        elif item.suffix in ('.fbx', '.blend'):
+            asset = StudioAsset(name=item.name, path=str(item))
             assets.append(asset)
     
     return assets
